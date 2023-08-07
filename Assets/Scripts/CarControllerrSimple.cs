@@ -15,18 +15,18 @@ public class AxleInfo
      
 public class CarControllerrSimple : MonoBehaviour 
 {
-	public List<AxleInfo> axleInfos;
-	public float maxMotorTorque;
-	public float maxSteeringAngle;
-	public float brakeTorque;
-	public float decelerationForce;
-    public float divisionOfSteering = 2.0f;
+	[SerializeField] List<AxleInfo> axleInfos;
+	[SerializeField] float maxMotorTorque;
+	[SerializeField] float maxSteerAngle = 27.0f;
+	float maxSteeringAngle; //relative to speed
+	[SerializeField] float brakeTorque;
+	[SerializeField] float decelerationForce;
     Rigidbody playerRb;
 
-    float wheelRadius = 0.31f; // put here your wheel radius
-	float wheelRpm = 0.0f; // put here you rpm
-	float circumFerence; //here we will store the circumFerence
-	float speedOnKmh; // here the speed in kilometers in hour
+    float wheelRadius = 0.31f;
+	float wheelRpm = 0.0f;
+	float circumFerence; 
+	public float speedOnKmh;
 
 	[Header ("AudioSettings")]
 	[SerializeField] AudioClip clipHandbreak;
@@ -65,7 +65,7 @@ public class CarControllerrSimple : MonoBehaviour
 	}
 	void FixedUpdate ()
 	{
-        maxSteeringAngle = 25 - (speedOnKmh / 4);
+        maxSteeringAngle = maxSteerAngle - (speedOnKmh / 4);
 		float motor = maxMotorTorque * Input.GetAxis ("Vertical");
 		float steering = maxSteeringAngle * Input.GetAxis ("Horizontal");
         Debug.Log(speedOnKmh);
