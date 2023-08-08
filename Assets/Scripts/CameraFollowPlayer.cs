@@ -5,23 +5,32 @@ using UnityEngine;
 public class CameraFollowPlayer : MonoBehaviour
 {
     [SerializeField] Transform playerTr;
-    [SerializeField] Vector3 offset;
+    int offsetNum = 0;
+    [SerializeField] Vector3[] offset = {new Vector3 (0.0f, 0.5f, -1.5f), 
+                                            new Vector3 (0.0f, 0.35f, -0.9f),
+                                            new Vector3 (0.0f, 0.3f, 2.0f)};
     [SerializeField] float followSpeed = 10.0f, lookSpeed = 10.0f;
-    // Start is called before the first frame update
     void LookAtTarget()
     {
         Vector3 lookDirection = playerTr.position - transform.position;
         Quaternion rot = Quaternion.LookRotation(lookDirection, Vector3.up);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, lookSpeed * Time.fixedDeltaTime);
-
     }
 
     void Move()
     {
-        Vector3 targetPos = playerTr.position + playerTr.forward * offset.z +
-                            playerTr.right * offset.x +
-                            playerTr.up * offset.y;
+        Vector3 targetPos = playerTr.position + playerTr.forward * offset[offsetNum].z +
+                            playerTr.right * offset[offsetNum].x +
+                            playerTr.up * offset[offsetNum].y;
         transform.position = Vector3.Lerp(transform.position, targetPos, followSpeed * Time.fixedDeltaTime);
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Debug.Log("heh");
+            ChangeView();
+        }
     }
 
     // Update is called once per frame
@@ -29,5 +38,15 @@ public class CameraFollowPlayer : MonoBehaviour
     {
         LookAtTarget();
         Move();
+    }
+
+    void ChangeView()
+    {
+        offsetNum++;
+        if (offsetNum % 3 == 0)
+        {
+            offsetNum = 0;
+        }
+        
     }
 }

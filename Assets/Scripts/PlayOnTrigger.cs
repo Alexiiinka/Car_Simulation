@@ -6,7 +6,6 @@ public class PlayOnTrigger : MonoBehaviour
 {
     [SerializeField] AudioClip clip;
     AudioSource source;
-    // Start is called before the first frame update
     void Start()
     {
         source = gameObject.GetComponent<AudioSource>();

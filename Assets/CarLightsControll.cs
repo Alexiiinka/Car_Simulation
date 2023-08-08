@@ -40,6 +40,10 @@ public class CarLightsControll : MonoBehaviour
             brakeM.EnableKeyword("_EMISSION");
             smokePs.Play();
         }
+        else if (Input.GetKey(KeyCode.Space))
+        {
+            brakeM.EnableKeyword("_EMISSION");
+        }
         if (Input.GetKeyUp(KeyCode.Space))
         {
             brakeM.DisableKeyword("_EMISSION");
