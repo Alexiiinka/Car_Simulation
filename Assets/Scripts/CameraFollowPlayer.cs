@@ -28,7 +28,6 @@ public class CameraFollowPlayer : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
-            Debug.Log("heh");
             ChangeView();
         }
     }

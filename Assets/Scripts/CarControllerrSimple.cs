@@ -56,7 +56,7 @@ public class CarControllerrSimple : MonoBehaviour
 
 	void Update()
 	{
-		audioScPlayer.pitch = 1 + (speedOnKmh / 15);
+		audioScPlayer.pitch = 1 + (speedOnKmh / 15); //to set the sound of accelerating
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			audioScPlayer.pitch = 1;
@@ -68,7 +68,6 @@ public class CarControllerrSimple : MonoBehaviour
         maxSteeringAngle = maxSteerAngle - (speedOnKmh / 4);
 		float motor = maxMotorTorque * Input.GetAxis ("Vertical");
 		float steering = maxSteeringAngle * Input.GetAxis ("Horizontal");
-        Debug.Log(speedOnKmh);
 		for (int i = 0; i < axleInfos.Count; i++)
 		{
 			if (axleInfos[i].motor)
@@ -88,7 +87,8 @@ public class CarControllerrSimple : MonoBehaviour
 		ApplyLocalPositionToVisuals (axleInfos[1]); //visual move of back wheels
 
         wheelRpm = axleInfos[0].leftWheelCollider.rpm;
-        speedOnKmh = circumFerence * wheelRpm / 60 ; // finding kmh
+        speedOnKmh = circumFerence * wheelRpm / 60; // finding kmh
+		gameObject.GetComponent<CarStats>().speed = speedOnKmh / 0.25f; //because of scale it must be divided by 0.25
 	}
 
 	private void Acceleration (AxleInfo axleInfo, float motor)
