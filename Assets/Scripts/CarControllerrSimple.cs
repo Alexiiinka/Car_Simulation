@@ -28,9 +28,12 @@ public class CarControllerrSimple : MonoBehaviour
 	float circumFerence; 
 	public float speedOnKmh;
 
+	[SerializeField] LevelManagerScript lvlSc;
+
 	[Header ("AudioSettings")]
 	[SerializeField] AudioClip clipHandbreak;
 	AudioSource audioScPlayer;
+	
 
 	
 
@@ -57,7 +60,7 @@ public class CarControllerrSimple : MonoBehaviour
 	void Update()
 	{
 		audioScPlayer.pitch = 1 + (speedOnKmh / 15); //to set the sound of accelerating
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKeyDown(KeyCode.Space) && lvlSc.gameOn) //because if the game is paused, the audio source is disabled - it throws exception
 		{
 			audioScPlayer.pitch = 1;
 			audioScPlayer.PlayOneShot(clipHandbreak);

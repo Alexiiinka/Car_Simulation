@@ -8,9 +8,12 @@ public class ObjectCrashed : MonoBehaviour
 
     void OnCollisionEnter (Collision other)
     {
-        if (other.gameObject.CompareTag("Player") && playerStatsSc.speed > 40)
+        if (other.gameObject.CompareTag("Player") && playerStatsSc.speed > 60 && playerStatsSc.canCrash)
         {
-            Debug.Log("hehe");
+            playerStatsSc.health--;
+            StartCoroutine(playerStatsSc.ChangeHealthBar());
+            // it needs to be coroutine because car cannot have more than 1 damage in "1 second"
+            // so it doesn't take more than 1 dmg from car on crash
         }
     }
 }
